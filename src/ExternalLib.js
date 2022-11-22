@@ -1,12 +1,26 @@
 import React from 'react'
 
 const ExternalLib = () => {
-    const data = [{
-        title: 'External Libraries',
-        content: 'express v18.0.2',
-      },
-      
-      ]
+    const [data, setdata] = useState({})
+    
+    const getData = async()=> {
+        const req = await fetch("http://localhost:5000/fetchExternalLib",{
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json",
+                'Accept': 'application/json'
+            },
+        
+        })
+        const res = await req.json()
+        setdata(res)
+        
+    }
+    useEffect(() => {
+        getData()
+    
+    }, [])
+    
   return (
     <div className='mt border- border-2 border-sky-500 w-fit h-3/4'>
         {data.map((data , _i) => (

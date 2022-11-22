@@ -1,14 +1,25 @@
 import React from 'react'
 
 const CodeBase = () => {
-    const data = [{
-        title: 'Scanned Codebase:',
-        content: 'sample-express-codebase',
-      },
-      {
-        title: 'Number of Scanned Files',
-        content: '2',
-      },]
+    const [data, setdata] = useState({})
+    
+    const getData = async()=> {
+        const req = await fetch("http://localhost:5000/fetchCodeBase",{
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json",
+                'Accept': 'application/json'
+            },
+        
+        })
+        const res = await req.json()
+        setdata(res)
+        
+    }
+    useEffect(() => {
+        getData()
+    
+    }, [])
   return (
     <div className=' border- border-2 border-sky-500 w-fit h-3/4'>
         {data.map((data , _i) => (

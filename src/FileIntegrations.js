@@ -1,20 +1,25 @@
 import React from 'react'
 
 const FileIntegrations = () => {
-    const data = [{
-        title: 'File Integrations:',
-        content: 'Index.js',
-      },
-      {
-        title: 'External API Connections:',
-        content: 'https://pokemonapi.com/api/v/1.1                [line 12]',
-      },
-      {
-        title: 'Internal API Endpoints:',
-        content: '/home               [HTTP GET]',
-      },
-      
-    ]
+    const [data, setdata] = useState({})
+    
+    const getData = async()=> {
+        const req = await fetch("http://localhost:5000/fetchFileIntegration",{
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json",
+                'Accept': 'application/json'
+            },
+        
+        })
+        const res = await req.json()
+        setdata(res)
+        
+    }
+    useEffect(() => {
+        getData()
+    
+    }, [])
   return (
     <div className='border- border-2 border-sky-500 w-fit h-3/4'>
         {data.map((data , _i) => (
